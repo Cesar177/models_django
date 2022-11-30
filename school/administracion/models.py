@@ -1,5 +1,5 @@
 from django.db import models
-from administracion.models import Teacher
+import datetime
 
 
 # Create your models here.
@@ -62,3 +62,38 @@ class TeacherProxy(Teacher):
 
     def get_bonnus(self):
         return self.salary + self.rating*100
+
+
+# Tarea
+class Evaluacion(models.Model):
+    hour_and_date = models.DateTimeField(default=datetime.datetime.now())
+    course = models.CharField(max_length=30)
+    evaluator = models.CharField(max_length=50)
+
+    class Meta:
+        abstract = True
+
+class Examen_Final(Evaluacion):
+    duration_of_the_exam = models.IntegerField(default=0)
+    number_of_questions = models.IntegerField(default=0)
+    total_score = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "final_examens"
+
+    def score_for_question(self):
+        return self.number_of_questions / self.total_score
+    
+class Proyecto(Evaluacion):
+    project_topic = models.CharField(max_length=100)
+    number_of_groups = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "proyects"
+
+
+class ProyectoProxy(Proyecto):
+    class Meta:
+        ordering = ['project_topic']
+        proxy = True
+ 
