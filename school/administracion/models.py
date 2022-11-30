@@ -1,6 +1,12 @@
 from django.db import models
+from administracion.models import Teacher
+
 
 # Create your models here.
+# 1: Person
+# 2: Student
+# 3: Teacher
+# 4: ClassRoom
 
 
 class Person(models.Model):
@@ -21,7 +27,6 @@ class ClassRoom(models.Model):
 
     class Meta:
         db_table = "classrooms"
-
 
 
 class Student(Person):
