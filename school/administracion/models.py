@@ -64,6 +64,8 @@ class TeacherProxy(Teacher):
         return self.salary + self.rating*100
 
 
+
+
 # Tarea
 class Evaluacion(models.Model):
     hour_and_date = models.DateTimeField(default=datetime.datetime.now())
